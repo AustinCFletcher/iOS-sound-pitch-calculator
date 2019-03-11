@@ -10,7 +10,9 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var frequencyLabel: UILabel!
+    
     private var engine: SoundEngine?
     
     
@@ -56,8 +58,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toggleMicTap(_ sender: Any) {
+        frequencyLabel.text = "Frequency: CALCULATING..."
         engine?.captureSampleAndCalculateFrequency({ freq in
-            
+            DispatchQueue.main.async {
+                self.frequencyLabel.text = "Frequency: \(freq) hz"
+            }
         })
     }
 

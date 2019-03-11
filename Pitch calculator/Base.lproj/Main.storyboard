@@ -29,15 +29,27 @@
                                     <action selector="toggleMicTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="goF-68-6Ml"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency: &lt;not yet yeeted&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvV-NH-iTP">
+                                <rect key="frame" x="16" y="323" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jzE-0W-pvB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="6D7-ev-TMB"/>
+                            <constraint firstItem="KvV-NH-iTP" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="B5U-j5-6c9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jzE-0W-pvB" secondAttribute="trailing" constant="16" id="Cq0-4F-5Ju"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jzE-0W-pvB" secondAttribute="bottom" constant="16" id="cmf-OI-MZY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KvV-NH-iTP" secondAttribute="trailing" constant="16" id="epR-I2-qJ8"/>
+                            <constraint firstItem="KvV-NH-iTP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="uSk-76-3hl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="frequencyLabel" destination="KvV-NH-iTP" id="RXu-I1-Edn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
