@@ -11,13 +11,17 @@ import AVFoundation
 
 class SoundEngine {
     
+    // TASKS TO DO NEXT
+    // TODO: Move frequency calculation to its own object
+    // TODO: return the frequency result to the
+    
     private let audioEngine: AVAudioEngine
     
     // consider mic manager class instead of engine doing it all
     private let mic: AVAudioInputNode
     private var micTapped = false
-    private var micStartTime: Date?
-    private var micEndTime: Date?
+    private var micStartTime: AVAudioTime?
+    
     
     private var currentSamples = [Float]()
     
@@ -28,33 +32,130 @@ class SoundEngine {
         mic = audioEngine.inputNode
     }
     
-    // MARK: - Public API
+    // MARK: - Mic control
     
-    public func calculateFrequencyOfCurrentBuffer() {
-    
-        let filtered = currentSamples.filter { sample in
-            return (sample < 0.0001) && (sample > -0.0001)
-        }
-        print("\n \(filtered.count) \n")
-        print("\n \(currentSamples) \n")
+    /// Untap the mic
+    private func turnMicOff() {
+        mic.removeTap(onBus: 0)
+        micTapped = false
     }
     
-    public func toggleMic() {
-        if micTapped {
-            
-            mic.removeTap(onBus: 0)
-            micTapped = false
-            return
+    private func trimLeadingZeroSamplesFromMicStartupIfNeeded(_ samples: [Float]) -> [Float] {
+        // find the first non-zero sampple and return the portion of the array that comes after that
+        for (i, sample) in samples.enumerated() {
+            if sample != 0 {
+                return Array( samples.suffix(from: i) )
+            }
         }
         
-        let micFormat = mic.inputFormat(forBus: 0)
-        mic.installTap(onBus: 0, bufferSize: 2048, format: micFormat) { [weak self] (buffer, when) in
-            
-            
-            let sampleData = UnsafeBufferPointer(start: buffer.floatChannelData![0], count: Int(buffer.frameLength))
-            self?.currentSamples.append(contentsOf: sampleData)
-            print("\n \(sampleData.first) \n")
+        return samples
+    }
+    
+    // MARK: - Frequency calculation
+    
+    
+    
+    /// Turns on the mic for a single buffer to capture sound from the mic and returns the frequency of the captured sound
+    /// Uses concepts:  (from: https://www.objc.io/issues/24-audio/audio-dog-house/)
+    /// - dot products of the original buffer and offset buffer
+    /// - autocorrelation to find frequency of pitch
+    ///
+    /// - Returns: the calculated frequency
+    private func calculateFrequencyOfCurrentBuffer() -> Float {
+        // when mic is turned on, results in like 600 samples of 0 which throw off the collected freq
+        let samples = Array( trimLeadingZeroSamplesFromMicStartupIfNeeded(currentSamples) )
+
+        // calculated all the dot products of the original buffer and the lag-offset buffers, resulting in the autocorrelation
+        let dotProducts = calculateDotProducts(samples: samples)
+        // find the peaks in the autocorrelation
+        let peaks = findPeaksOfAutocorrelation(dotProducts: dotProducts)
+        // use the peaks to caclulate the frequency of the original buffer :)
+        return calculateFrequencyFrom(peaks: peaks, sampleRate: 48000.0)
+    }
+    
+    private func dotProduct(signalA: [Float], signalB: [Float]) -> Float {
+        return zip(signalA, signalB).map(*).reduce(0.0, { (result, value) in
+            return result + value
+        })
+    }
+    
+    /// calculate dotproducts of all lag offsets of the buffer
+    private func calculateDotProducts(samples: [Float]) -> [Float] {
+        
+        var dotProducts = [Float]()
+        
+        for value in 0...samples.count {
+            let outOfPhaseSignal = Array(samples.suffix(from: value)) + Array(samples.prefix(upTo: value))
+            dotProducts.append( dotProduct(signalA: samples, signalB: outOfPhaseSignal) )
         }
+        
+        return dotProducts
+    }
+    
+    /// Find peaks of autocorrelation (array of dotproducts of all lag offsets of the buffer)
+    private func findPeaksOfAutocorrelation(dotProducts: [Float]) -> [Int] {
+        
+        var isGoingUp = false
+        var peaks = [0]
+        
+        var prev = dotProducts.first ?? 0.0
+        
+        for (i, dp) in dotProducts.enumerated() {
+            
+            if isGoingUp, prev > dp {
+                peaks.append(i - 1) // grab index of peak
+                isGoingUp = false
+            }
+            
+            if dp > prev {
+                isGoingUp = true
+            }
+            
+            prev = dp
+        }
+        
+        return peaks
+    }
+    
+    private func calculateFrequencyFrom( peaks: [Int], sampleRate: Float ) -> Float {
+        // calculate the differences in between each peak index
+        var differences = [Int]()
+        for i in 1..<peaks.count {
+            differences.append( (peaks[i] - peaks[i - 1]) )
+        }
+        
+        // take the average number of samples in between peaks
+        let numberOfSamplesBetweenPeaks = Float( differences.reduce(0) { $0 + $1 }  / (peaks.count - 1) )
+        
+        return sampleRate / Float(numberOfSamplesBetweenPeaks)
+    }
+    
+    // MARK: - Public API
+    
+    /// Turns on the mic for a single buffer to capture sound from the mic and returns the frequency of the captured sound
+    ///
+    /// - Parameter completion: callback provided with the frequency
+    public func captureSampleAndCalculateFrequency(_ completion: @escaping (Float) -> Void ) {
+        
+        // Reset the samples in the current buffer
+        currentSamples.removeAll()
+        
+        let micFormat = mic.inputFormat(forBus: 0)
+        
+        mic.installTap(onBus: 0, bufferSize: 2048, format: micFormat) { [weak self] (buffer, when) in
+            if self?.micStartTime == nil { self?.micStartTime = when }
+            
+            let samplesInBuffer = Int(buffer.frameLength)
+            let sampleData = UnsafeBufferPointer(start: buffer.floatChannelData![0], count: samplesInBuffer)
+            
+            self?.currentSamples.append(contentsOf: sampleData)
+            self?.turnMicOff()
+            if let frequency = self?.calculateFrequencyOfCurrentBuffer() {
+                completion(frequency)
+            }
+            
+        }
+        
         micTapped = true
         startEngine()
     }

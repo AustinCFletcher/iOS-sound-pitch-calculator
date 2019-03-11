@@ -19,8 +19,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzE-0W-pvB">
-                                <rect key="frame" x="16" y="621" width="343" height="30"/>
+                                <rect key="frame" x="16" y="551" width="343" height="100"/>
                                 <color key="backgroundColor" red="0.1320261009" green="1" blue="0.96931031400000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="F5S-sN-QFr"/>
+                                </constraints>
                                 <state key="normal" title="Tap microphone for samples"/>
                                 <connections>
                                     <action selector="toggleMicTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="goF-68-6Ml"/>

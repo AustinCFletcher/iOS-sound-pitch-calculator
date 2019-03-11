@@ -56,7 +56,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toggleMicTap(_ sender: Any) {
-        engine?.toggleMic()
+        engine?.captureSampleAndCalculateFrequency({ freq in
+            
+        })
     }
 
 }
