@@ -11,27 +11,34 @@ import AVFoundation
 
 class SoundEngine {
     
-    // TASKS TO DO NEXT
+    // TASKS TO DO NEXT: (for the monophonic frequency calc'ing at least)
     // TODO: Move frequency calculation to its own object
+    // TODO: fix rudimentary autocorrelation array copt performance issues with clever array indexing
+    // TODO: use FFT to calc the autocorrelation performantly but keep the rudimentary one for reference
+    // TODO: Make this class a MicInputManager
     // TODO: return the frequency result to the
     
-    private let audioEngine: AVAudioEngine
+    private let audioEngine = AVAudioEngine()
     
-    // consider mic manager class instead of engine doing it all
     private let mic: AVAudioInputNode
     private var micTapped = false
     private var micStartTime: AVAudioTime?
-    
     
     private var currentSamples = [Float]()
     
     init() {
         SoundEngine.configureAudioSession()
-        audioEngine = AVAudioEngine()
         // input is set to microphone via the <> in configureAudioSession()
         mic = audioEngine.inputNode
     }
     
+    private static func configureAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: AVAudioSession.Mode.default, options: [.mixWithOthers, .defaultToSpeaker])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch { }
+    }
+
     // MARK: - Mic control
     
     /// Untap the mic
@@ -52,8 +59,6 @@ class SoundEngine {
     }
     
     // MARK: - Frequency calculation
-    
-    
     
     /// Turns on the mic for a single buffer to capture sound from the mic and returns the frequency of the captured sound
     /// Uses concepts:  (from: https://www.objc.io/issues/24-audio/audio-dog-house/)
@@ -191,12 +196,6 @@ class SoundEngine {
         } catch { }
     }
     
-    private static func configureAudioSession() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: AVAudioSession.Mode.default, options: [.mixWithOthers, .defaultToSpeaker])
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch { }
-    }
     
     private func readableAudioFileFrom(url: URL) -> AVAudioFile {
         var audioFile: AVAudioFile!

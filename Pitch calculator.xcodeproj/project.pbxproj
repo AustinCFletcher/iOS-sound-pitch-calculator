@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F46E4C3223EF41F00DAB719 /* SoundOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F46E4C2223EF41F00DAB719 /* SoundOutputManager.swift */; };
 		4F48ED8722359F8800741C6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ED8622359F8800741C6B /* AppDelegate.swift */; };
 		4F48ED8922359F8800741C6B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ED8822359F8800741C6B /* ViewController.swift */; };
 		4F48ED8C22359F8800741C6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F48ED8A22359F8800741C6B /* Main.storyboard */; };
@@ -14,6 +15,8 @@
 		4F48ED9122359F8900741C6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F48ED8F22359F8900741C6B /* LaunchScreen.storyboard */; };
 		4F48ED9C22359F8A00741C6B /* Pitch_calculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ED9B22359F8A00741C6B /* Pitch_calculatorTests.swift */; };
 		4F48EDA82235A04300741C6B /* SoundEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F48EDA72235A04300741C6B /* SoundEngine.swift */; };
+		4F67B7EA223ECB3C00508BC1 /* OscillatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F67B7E9223ECB3C00508BC1 /* OscillatorViewController.swift */; };
+		4F67B7EC223ECBC900508BC1 /* Oscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F67B7EB223ECBC900508BC1 /* Oscillator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F46E4C2223EF41F00DAB719 /* SoundOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOutputManager.swift; sourceTree = "<group>"; };
 		4F48ED8322359F8800741C6B /* Pitch calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pitch calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F48ED8622359F8800741C6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F48ED8822359F8800741C6B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +42,8 @@
 		4F48ED9B22359F8A00741C6B /* Pitch_calculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pitch_calculatorTests.swift; sourceTree = "<group>"; };
 		4F48ED9D22359F8A00741C6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F48EDA72235A04300741C6B /* SoundEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEngine.swift; sourceTree = "<group>"; };
+		4F67B7E9223ECB3C00508BC1 /* OscillatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OscillatorViewController.swift; sourceTree = "<group>"; };
+		4F67B7EB223ECBC900508BC1 /* Oscillator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oscillator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				4F48ED8622359F8800741C6B /* AppDelegate.swift */,
+				4F67B7E9223ECB3C00508BC1 /* OscillatorViewController.swift */,
 				4F48ED8822359F8800741C6B /* ViewController.swift */,
 				4F48ED8A22359F8800741C6B /* Main.storyboard */,
 				4F48ED8D22359F8900741C6B /* Assets.xcassets */,
@@ -103,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				4F48EDA72235A04300741C6B /* SoundEngine.swift */,
+				4F67B7EB223ECBC900508BC1 /* Oscillator.swift */,
+				4F46E4C2223EF41F00DAB719 /* SoundOutputManager.swift */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -208,9 +217,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F67B7EA223ECB3C00508BC1 /* OscillatorViewController.swift in Sources */,
 				4F48ED8922359F8800741C6B /* ViewController.swift in Sources */,
 				4F48ED8722359F8800741C6B /* AppDelegate.swift in Sources */,
 				4F48EDA82235A04300741C6B /* SoundEngine.swift in Sources */,
+				4F46E4C3223EF41F00DAB719 /* SoundOutputManager.swift in Sources */,
+				4F67B7EC223ECBC900508BC1 /* Oscillator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,7 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9AS6X9K4PV;
+				DEVELOPMENT_TEAM = 9K26M7235C;
 				INFOPLIST_FILE = "Pitch calculator/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -391,7 +403,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9AS6X9K4PV;
+				DEVELOPMENT_TEAM = 9K26M7235C;
 				INFOPLIST_FILE = "Pitch calculator/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
