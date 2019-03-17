@@ -13,6 +13,8 @@ class OscillatorViewController: UIViewController {
     
     // MARK: - Properties
     private let oscillator = Oscillator(frequency: 880)
+    private let waveTypes: [OscillatorWaveType] = [.sine, .saw, .square, .triangle]
+    private var currentWaveTypeIndex = 0
     
     // MARK: - View lifecycle
 
@@ -26,14 +28,22 @@ class OscillatorViewController: UIViewController {
     
     // MARK: - Actions
     
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        oscillator.setFrequency(sender.value * 880.0)
+    }
+    
+    @IBAction func changeWaveTypePressed(_ sender: Any) {
+        currentWaveTypeIndex = (currentWaveTypeIndex + 1) % waveTypes.count
+        oscillator.setWaveType(waveTypes[currentWaveTypeIndex])
+    }
+    
+    
     @IBAction func playTouched(_ sender: Any) {
         SoundOutputManager.shared.togglePlaying()
     }
     
     
-    @IBAction func sliderValueChanged(_ sender: UISlider) {
-        oscillator.setFrequency(sender.value * 880.0)
-    }
+    
     
     /*
     // MARK: - Navigation

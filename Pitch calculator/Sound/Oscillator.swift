@@ -8,8 +8,22 @@
 
 import Foundation
 
+public enum OscillatorWaveType {
+    case sine
+    case square
+    case saw
+    case triangle
+}
+
 // TODO: consider protocol vs ineheritance here for different oscillator types and maybe test performance of static vs dynamic method dispatch?
 class Oscillator {
+    
+    // TODO: Next tasks:
+    // 1. wavetables
+    // 2. additive synthesis for sine wave, and other waves
+    // 3. filters
+    // 4. envelopes
+    //
     
     // constants
     private let PI: Float = Float.pi
@@ -22,18 +36,47 @@ class Oscillator {
     private var sampleRate: Float = 48000.0
     private var phaseIncrement: Float = 0
     private var isMuted: Bool = false
+    private var oscillatorWaveType: OscillatorWaveType = .sine
     
     // allow passing in config as defaults
     public init(frequency: Float = 440.0,
                 phase: Float = 0.0,
                 sampleRate: Float = 48000.0,
-                phaseIncrement: Float = 0) {
+                phaseIncrement: Float = 0,
+                oscillatorWaveType: OscillatorWaveType = .sine) {
         self.frequency = frequency
         self.phase = phase
         self.sampleRate = sampleRate
+        self.oscillatorWaveType = oscillatorWaveType
         
         updatePhaseIncrement()
     }
+    
+    // MARK: - Setters
+    
+    public func setFrequency(_ frequency: Float) {
+        self.frequency = frequency
+    }
+    
+    public func setWaveType(_ oscillatorWaveType: OscillatorWaveType) {
+        self.oscillatorWaveType = oscillatorWaveType
+    }
+    
+    // MARK: - Public API
+    
+    
+    /// Calculates the next sample and prepares the oscillator for the next call
+    ///
+    /// - Returns: the sample
+    public func nextSample() -> Float {
+        let sample = getSampleBasedOnWaveType()
+        updatePhaseForNextSample()
+        return sample
+    }
+    
+    // TODO: generate a buffer of samples, maybe taking in a buffer pointer...
+    
+    // MARK: - Phase management
     
     // TODO: consider pure functions for these? take in params and return val instead of sideffects....
     
@@ -50,19 +93,20 @@ class Oscillator {
         }
     }
     
-    public func setFrequency(_ frequency: Float) {
-        self.frequency = frequency
+    // MARK: - Sample generation
+    
+    private func getSampleBasedOnWaveType() -> Float {
+        switch (oscillatorWaveType) {
+        case .sine:
+            return sin(phase)
+        case .saw:
+            return 1.0 - (2.0 * phase / twoPI);
+        case .square:
+            return (phase <= PI) ? 1.0 : -1.0
+        case .triangle:
+            var value = -1.0 + (2.0 * phase / twoPI);
+            value = 2.0 * (abs(value) - 0.5)
+            return value
+        }
     }
-    
-    
-    /// Calculates the next sample and prepares the oscillator for the next call
-    ///
-    /// - Returns: the sample
-    public func nextSample() -> Float {
-        let sample = sin(phase)
-        updatePhaseForNextSample()
-        return sample
-    }
-    
-    // TODO: generate a buffer of samples, maybe taking in a buffer pointer...
 }

@@ -81,14 +81,28 @@
                                     <action selector="sliderValueChanged:" destination="fci-iw-JwK" eventType="valueChanged" id="45U-Tg-p8L"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MzT-nM-Qcz">
+                                <rect key="frame" x="16" y="426" width="343" height="60"/>
+                                <color key="backgroundColor" red="0.1320261009" green="1" blue="0.96931031400000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="2dl-k5-FDC"/>
+                                </constraints>
+                                <state key="normal" title="Change wave type"/>
+                                <connections>
+                                    <action selector="changeWaveTypePressed:" destination="fci-iw-JwK" eventType="touchUpInside" id="1HE-Ao-YNn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="bottom" secondItem="NBS-YB-jQr" secondAttribute="bottom" constant="16" id="5Xi-Rr-T14"/>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="MzT-nM-Qcz" secondAttribute="trailing" constant="16" id="6f1-sb-jOA"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="NBS-YB-jQr" secondAttribute="trailing" constant="16" id="FqL-1R-3sA"/>
                             <constraint firstItem="aV0-qO-ShK" firstAttribute="centerY" secondItem="RGn-KM-WGY" secondAttribute="centerY" id="TT5-n4-e4K"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="aV0-qO-ShK" secondAttribute="trailing" constant="16" id="V8O-8F-dnZ"/>
+                            <constraint firstItem="MzT-nM-Qcz" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="YBt-h1-yHd"/>
                             <constraint firstItem="aV0-qO-ShK" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="ceJ-O7-Pz8"/>
+                            <constraint firstItem="NBS-YB-jQr" firstAttribute="top" secondItem="MzT-nM-Qcz" secondAttribute="bottom" constant="16" id="ild-SO-XS7"/>
                             <constraint firstItem="NBS-YB-jQr" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="y37-Pr-fTS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eop-h7-IA4"/>
