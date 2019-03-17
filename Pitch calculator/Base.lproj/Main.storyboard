@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="53r-B7-G1i">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Frequency-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pitch_calculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,25 +19,104 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzE-0W-pvB">
-                                <rect key="frame" x="16" y="621" width="343" height="30"/>
+                                <rect key="frame" x="16" y="502" width="343" height="100"/>
                                 <color key="backgroundColor" red="0.1320261009" green="1" blue="0.96931031400000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="F5S-sN-QFr"/>
+                                </constraints>
                                 <state key="normal" title="Tap microphone for samples"/>
                                 <connections>
                                     <action selector="toggleMicTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="goF-68-6Ml"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency: &lt;not yet calculated&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvV-NH-iTP">
+                                <rect key="frame" x="16" y="323" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jzE-0W-pvB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="6D7-ev-TMB"/>
+                            <constraint firstItem="KvV-NH-iTP" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="B5U-j5-6c9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jzE-0W-pvB" secondAttribute="trailing" constant="16" id="Cq0-4F-5Ju"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jzE-0W-pvB" secondAttribute="bottom" constant="16" id="cmf-OI-MZY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KvV-NH-iTP" secondAttribute="trailing" constant="16" id="epR-I2-qJ8"/>
+                            <constraint firstItem="KvV-NH-iTP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="uSk-76-3hl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Frequency" id="gTZ-od-F37"/>
+                    <connections>
+                        <outlet property="frequencyLabel" destination="KvV-NH-iTP" id="RXu-I1-Edn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="27.436281859070466"/>
+        </scene>
+        <!--Oscillator-->
+        <scene sceneID="34r-49-KUJ">
+            <objects>
+                <viewController id="fci-iw-JwK" customClass="OscillatorViewController" customModule="Pitch_calculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RGn-KM-WGY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBS-YB-jQr">
+                                <rect key="frame" x="16" y="502" width="343" height="100"/>
+                                <color key="backgroundColor" red="0.1320261009" green="1" blue="0.96931031400000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="MpS-M3-Ud7"/>
+                                </constraints>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="playTouched:" destination="fci-iw-JwK" eventType="touchUpInside" id="6kP-z0-PP2"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aV0-qO-ShK">
+                                <rect key="frame" x="14" y="318.5" width="347" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="fci-iw-JwK" eventType="valueChanged" id="45U-Tg-p8L"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="bottom" secondItem="NBS-YB-jQr" secondAttribute="bottom" constant="16" id="5Xi-Rr-T14"/>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="NBS-YB-jQr" secondAttribute="trailing" constant="16" id="FqL-1R-3sA"/>
+                            <constraint firstItem="aV0-qO-ShK" firstAttribute="centerY" secondItem="RGn-KM-WGY" secondAttribute="centerY" id="TT5-n4-e4K"/>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="aV0-qO-ShK" secondAttribute="trailing" constant="16" id="V8O-8F-dnZ"/>
+                            <constraint firstItem="aV0-qO-ShK" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="ceJ-O7-Pz8"/>
+                            <constraint firstItem="NBS-YB-jQr" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="y37-Pr-fTS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eop-h7-IA4"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Oscillator" id="bkc-KD-QR5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RLY-7h-m6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1001" y="812"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="eD3-gF-04o">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="53r-B7-G1i" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4km-my-AD4">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="V0e-D6-4Sr"/>
+                        <segue destination="fci-iw-JwK" kind="relationship" relationship="viewControllers" id="Etp-fm-98o"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jxI-xI-6Zz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="27.436281859070466"/>
         </scene>
     </scenes>
 </document>
