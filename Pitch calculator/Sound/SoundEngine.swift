@@ -71,7 +71,8 @@ class SoundEngine {
         let samples = Array( trimLeadingZeroSamplesFromMicStartupIfNeeded(currentSamples) )
 
         // calculated all the dot products of the original buffer and the lag-offset buffers, resulting in the autocorrelation
-        let dotProducts = calculateDotProducts(samples: samples)
+        //let dotProducts = calculateDotProducts(samples: samples)
+        let dotProducts = calculateDotProductsPerformant(samples: samples)
         // find the peaks in the autocorrelation
         let peaks = findPeaksOfAutocorrelation(dotProducts: dotProducts)
         // use the peaks to caclulate the frequency of the original buffer :)
@@ -92,6 +93,20 @@ class SoundEngine {
         for value in 0...samples.count {
             let outOfPhaseSignal = Array(samples.suffix(from: value)) + Array(samples.prefix(upTo: value))
             dotProducts.append( dotProduct(signalA: samples, signalB: outOfPhaseSignal) )
+        }
+        
+        return dotProducts
+    }
+    
+    private func calculateDotProductsPerformant(samples: [Float]) -> [Float] {
+        var dotProducts = [Float]()
+        
+        for offset in 0...samples.count {
+            var dotProduct: Float = 0
+            for index in 0..<samples.count {
+                dotProduct += (samples[index] * samples[(index + offset) % samples.count])
+            }
+           dotProducts.append(dotProduct)
         }
         
         return dotProducts
