@@ -25,6 +25,7 @@ class SoundEngine {
     private var micStartTime: AVAudioTime?
     
     private var currentSamples = [Float]()
+    private var buffers = [ [Float] ]()
     
     init() {
         SoundEngine.configureAudioSession()
@@ -167,13 +168,16 @@ class SoundEngine {
             if self?.micStartTime == nil { self?.micStartTime = when }
             
             let samplesInBuffer = Int(buffer.frameLength)
-            let sampleData = UnsafeBufferPointer(start: buffer.floatChannelData![0], count: samplesInBuffer)
+            let sampleData = Array( UnsafeBufferPointer(start: buffer.floatChannelData![0], count: samplesInBuffer) )
             
-            self?.currentSamples.append(contentsOf: sampleData)
+            self?.buffers.append(sampleData)
             self?.turnMicOff()
             if let frequency = self?.calculateFrequencyOfCurrentBuffer() {
                 completion(frequency)
             }
+            
+            // TODO: need to bring back toggle function
+            // implement the buffering of the buffers... array of arrays for easy manipulation? not sure if faster/cleaner than one buffer and do 1024-size windows (a true cyclic buffer)
             
         }
         
