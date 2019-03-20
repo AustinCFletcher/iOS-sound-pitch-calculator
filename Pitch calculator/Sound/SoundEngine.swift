@@ -68,7 +68,8 @@ class SoundEngine {
     /// - Returns: the calculated frequency
     private func calculateFrequencyOfCurrentBuffer() -> Float {
         // when mic is turned on, results in like 600 samples of 0 which throw off the collected freq
-        let samples = Array( trimLeadingZeroSamplesFromMicStartupIfNeeded(currentSamples) )
+        // TODO: make this sampling and calculations continuous so guitar-tuner effect is possible( continously sample and provide real time pitch)
+        let samples = Array( trimLeadingZeroSamplesFromMicStartupIfNeeded(currentSamples).prefix(1024) )
 
         // calculated all the dot products of the original buffer and the lag-offset buffers, resulting in the autocorrelation
         //let dotProducts = calculateDotProducts(samples: samples)
