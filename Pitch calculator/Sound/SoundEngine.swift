@@ -25,7 +25,12 @@ class SoundEngine {
     private var micStartTime: AVAudioTime?
     
     private var currentSamples = [Float]()
-    private var buffers = [ [Float] ]()
+    
+    /// TODO: let the mic class register a callback func on mic tap that gets called continously while sampling
+    /// let receiver of those samples process them... cyclical buffer? need to think throuhg this API
+    
+    // consider writing a wrapper for this? is just a fancy array
+    private var cyclicalBuffer = [Float]()
     
     init() {
         SoundEngine.configureAudioSession()
@@ -70,7 +75,7 @@ class SoundEngine {
     private func calculateFrequencyOfCurrentBuffer() -> Float {
         // when mic is turned on, results in like 600 samples of 0 which throw off the collected freq
         // TODO: make this sampling and calculations continuous so guitar-tuner effect is possible( continously sample and provide real time pitch)
-        let samples = Array( trimLeadingZeroSamplesFromMicStartupIfNeeded(currentSamples).prefix(1024) )
+        let samples = Array( trimLeadingZeroSamplesFromMicStartupIfNeeded(currentSamples).prefix(2048) )
 
         // calculated all the dot products of the original buffer and the lag-offset buffers, resulting in the autocorrelation
         //let dotProducts = calculateDotProducts(samples: samples)
@@ -92,7 +97,7 @@ class SoundEngine {
         
         var dotProducts = [Float]()
         
-        for value in 0...samples.count {
+        for value in 0..<samples.count {
             let outOfPhaseSignal = Array(samples.suffix(from: value)) + Array(samples.prefix(upTo: value))
             dotProducts.append( dotProduct(signalA: samples, signalB: outOfPhaseSignal) )
         }
@@ -103,7 +108,7 @@ class SoundEngine {
     private func calculateDotProductsPerformant(samples: [Float]) -> [Float] {
         var dotProducts = [Float]()
         
-        for offset in 0...samples.count {
+        for offset in 0..<samples.count {
             var dotProduct: Float = 0
             for index in 0..<samples.count {
                 dotProduct += (samples[index] * samples[(index + offset) % samples.count])
@@ -170,7 +175,8 @@ class SoundEngine {
             let samplesInBuffer = Int(buffer.frameLength)
             let sampleData = Array( UnsafeBufferPointer(start: buffer.floatChannelData![0], count: samplesInBuffer) )
             
-            self?.buffers.append(sampleData)
+            self?.currentSamples = sampleData
+            // self?.buffers.append(sampleData)
             self?.turnMicOff()
             if let frequency = self?.calculateFrequencyOfCurrentBuffer() {
                 completion(frequency)
