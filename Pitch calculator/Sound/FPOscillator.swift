@@ -22,10 +22,13 @@ class SignalFactory {
         }
     }
     
+    // think through why we need the phase wrapping on some and not others..
+    
     private func sineWave(frequency: Float) -> Signal {
         let phi = frequency / Sound.sampleRate
         return { i in
-            return sin(2.0 * Float(i) * phi * Sound.PI)
+            let phase = (Float(i) * phi).truncatingRemainder(dividingBy: Sound.twoPI)
+            return sin(Sound.twoPI * phase)
         }
     }
     
@@ -70,13 +73,16 @@ class FPOscillator {
     }
     private var signal: Signal
     private var amplitude: Float = 1
+    private let signalFactory = SignalFactory()
     
-    public init(frequency: Float = 440.0,
+    public init(frequency: Float,
                 oscillatorWaveType: OscillatorWaveType = .sine) {
         self.frequency = frequency
         self.oscillatorWaveType = oscillatorWaveType
         self.signal = SignalFactory().build(waveType: oscillatorWaveType, freq: frequency)
     }
+    
+    // MARK: - Setters
     
     public func setAmplitude(_ amplitude: Float) {
         self.amplitude = amplitude
@@ -90,11 +96,13 @@ class FPOscillator {
         self.oscillatorWaveType = oscillatorWaveType
     }
     
+    // MARK: - Public API
+    
     public func sample(_ index: Int) -> Float {
         return signal(index) * amplitude
     }
     
     private func updateSignalFunc(_ frequency: Float, oscillatorWaveType: OscillatorWaveType) {
-        signal = SignalFactory().build(waveType: oscillatorWaveType, freq: frequency)
+        signal = signalFactory.build(waveType: oscillatorWaveType, freq: frequency)
     }
 }
