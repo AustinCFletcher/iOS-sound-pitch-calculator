@@ -37,6 +37,7 @@ class Oscillator {
     private var phaseIncrement: Float = 0
     private var isMuted: Bool = false
     private var oscillatorWaveType: OscillatorWaveType = .sine
+    private var amplitude: Float = 1
     
     // allow passing in config as defaults
     public init(frequency: Float = 440.0,
@@ -58,6 +59,8 @@ class Oscillator {
         self.frequency = frequency
     }
     
+    
+    
     public func setWaveType(_ oscillatorWaveType: OscillatorWaveType) {
         self.oscillatorWaveType = oscillatorWaveType
     }
@@ -69,9 +72,20 @@ class Oscillator {
     ///
     /// - Returns: the sample
     public func nextSample() -> Float {
-        let sample = getSampleBasedOnWaveType()
+        let sample = applyAmplitude( getSampleBasedOnWaveType() )
         updatePhaseForNextSample()
         return sample
+    }
+    
+    // MARK: - Amplitude
+    // Need to really apply this somewhere else like a mixer/orchestrator, wave shouldnt know its ampitude..
+    
+    public func setAmplitude(_ amplitude: Float) {
+        self.amplitude = amplitude
+    }
+    
+    private func applyAmplitude(_ sample: Float) -> Float {
+        return sample * amplitude
     }
     
     // TODO: generate a buffer of samples, maybe taking in a buffer pointer...

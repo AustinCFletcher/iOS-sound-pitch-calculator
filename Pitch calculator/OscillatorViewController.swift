@@ -31,6 +31,9 @@ class OscillatorViewController: UIViewController {
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         oscillator.setFrequency(sender.value * 880.0)
     }
+    @IBAction func amplitudeSliderChanged(_ sender: UISlider) {
+        oscillator.setAmplitude(sender.value)
+    }
     
     @IBAction func changeWaveTypePressed(_ sender: Any) {
         currentWaveTypeIndex = (currentWaveTypeIndex + 1) % waveTypes.count
