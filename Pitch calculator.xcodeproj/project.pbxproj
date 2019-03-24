@@ -17,6 +17,8 @@
 		4F48EDA82235A04300741C6B /* SoundEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F48EDA72235A04300741C6B /* SoundEngine.swift */; };
 		4F67B7EA223ECB3C00508BC1 /* OscillatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F67B7E9223ECB3C00508BC1 /* OscillatorViewController.swift */; };
 		4F67B7EC223ECBC900508BC1 /* Oscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F67B7EB223ECBC900508BC1 /* Oscillator.swift */; };
+		4F87B4C42247F491000D266D /* FPOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87B4C32247F491000D266D /* FPOscillator.swift */; };
+		4F87B4C62247F54E000D266D /* SoundConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87B4C52247F54E000D266D /* SoundConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		4F48EDA72235A04300741C6B /* SoundEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEngine.swift; sourceTree = "<group>"; };
 		4F67B7E9223ECB3C00508BC1 /* OscillatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OscillatorViewController.swift; sourceTree = "<group>"; };
 		4F67B7EB223ECBC900508BC1 /* Oscillator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oscillator.swift; sourceTree = "<group>"; };
+		4F87B4C32247F491000D266D /* FPOscillator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPOscillator.swift; sourceTree = "<group>"; };
+		4F87B4C52247F54E000D266D /* SoundConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,8 @@
 				4F48EDA72235A04300741C6B /* SoundEngine.swift */,
 				4F67B7EB223ECBC900508BC1 /* Oscillator.swift */,
 				4F46E4C2223EF41F00DAB719 /* SoundOutputManager.swift */,
+				4F87B4C32247F491000D266D /* FPOscillator.swift */,
+				4F87B4C52247F54E000D266D /* SoundConstants.swift */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -217,10 +223,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F87B4C42247F491000D266D /* FPOscillator.swift in Sources */,
 				4F67B7EA223ECB3C00508BC1 /* OscillatorViewController.swift in Sources */,
 				4F48ED8922359F8800741C6B /* ViewController.swift in Sources */,
 				4F48ED8722359F8800741C6B /* AppDelegate.swift in Sources */,
 				4F48EDA82235A04300741C6B /* SoundEngine.swift in Sources */,
+				4F87B4C62247F54E000D266D /* SoundConstants.swift in Sources */,
 				4F46E4C3223EF41F00DAB719 /* SoundOutputManager.swift in Sources */,
 				4F67B7EC223ECBC900508BC1 /* Oscillator.swift in Sources */,
 			);
