@@ -92,17 +92,44 @@
                                     <action selector="changeWaveTypePressed:" destination="fci-iw-JwK" eventType="touchUpInside" id="1HE-Ao-YNn"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcY-Nr-pKA">
+                                <rect key="frame" x="16" y="289.5" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.01" maxValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="tvM-JA-Yle">
+                                <rect key="frame" x="14" y="195.5" width="347" height="31"/>
+                                <connections>
+                                    <action selector="amplitudeSliderChanged:" destination="fci-iw-JwK" eventType="valueChanged" id="2wF-mr-YsB"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amplitude" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAm-dP-Za4">
+                                <rect key="frame" x="16" y="166.5" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="DAm-dP-Za4" secondAttribute="trailing" constant="16" id="1bq-0v-6D1"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="bottom" secondItem="NBS-YB-jQr" secondAttribute="bottom" constant="16" id="5Xi-Rr-T14"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="MzT-nM-Qcz" secondAttribute="trailing" constant="16" id="6f1-sb-jOA"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="NBS-YB-jQr" secondAttribute="trailing" constant="16" id="FqL-1R-3sA"/>
+                            <constraint firstItem="tcY-Nr-pKA" firstAttribute="top" secondItem="tvM-JA-Yle" secondAttribute="bottom" constant="64" id="Hfs-WL-HtN"/>
+                            <constraint firstItem="tcY-Nr-pKA" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="KeA-jo-U1G"/>
                             <constraint firstItem="aV0-qO-ShK" firstAttribute="centerY" secondItem="RGn-KM-WGY" secondAttribute="centerY" id="TT5-n4-e4K"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="aV0-qO-ShK" secondAttribute="trailing" constant="16" id="V8O-8F-dnZ"/>
+                            <constraint firstItem="tvM-JA-Yle" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="VSA-rs-wcS"/>
                             <constraint firstItem="MzT-nM-Qcz" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="YBt-h1-yHd"/>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="tcY-Nr-pKA" secondAttribute="trailing" constant="16" id="ZFG-tJ-ckl"/>
                             <constraint firstItem="aV0-qO-ShK" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="ceJ-O7-Pz8"/>
+                            <constraint firstItem="tvM-JA-Yle" firstAttribute="top" secondItem="DAm-dP-Za4" secondAttribute="bottom" constant="8" id="dxG-iu-GN2"/>
                             <constraint firstItem="NBS-YB-jQr" firstAttribute="top" secondItem="MzT-nM-Qcz" secondAttribute="bottom" constant="16" id="ild-SO-XS7"/>
+                            <constraint firstItem="aV0-qO-ShK" firstAttribute="top" secondItem="tcY-Nr-pKA" secondAttribute="bottom" constant="8" id="kNd-Rr-mRt"/>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="tvM-JA-Yle" secondAttribute="trailing" constant="16" id="lzY-ox-s3k"/>
+                            <constraint firstItem="DAm-dP-Za4" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="uW4-SK-UnI"/>
                             <constraint firstItem="NBS-YB-jQr" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="y37-Pr-fTS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eop-h7-IA4"/>

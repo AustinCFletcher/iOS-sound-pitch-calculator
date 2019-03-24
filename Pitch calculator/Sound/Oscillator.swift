@@ -25,28 +25,22 @@ class Oscillator {
     // 4. envelopes
     //
     
-    // constants
-    private let PI: Float = Float.pi
-    private let twoPI: Float = Float.pi * 2
-    
     private var frequency: Float = 440.0 {
         didSet { updatePhaseIncrement() } // update the phase increment on every freq change
     }
     private var phase: Float = 0.0
-    private var sampleRate: Float = 48000.0
     private var phaseIncrement: Float = 0
     private var isMuted: Bool = false
     private var oscillatorWaveType: OscillatorWaveType = .sine
+    private var amplitude: Float = 1
     
     // allow passing in config as defaults
     public init(frequency: Float = 440.0,
                 phase: Float = 0.0,
-                sampleRate: Float = 48000.0,
                 phaseIncrement: Float = 0,
                 oscillatorWaveType: OscillatorWaveType = .sine) {
         self.frequency = frequency
         self.phase = phase
-        self.sampleRate = sampleRate
         self.oscillatorWaveType = oscillatorWaveType
         
         updatePhaseIncrement()
@@ -57,6 +51,8 @@ class Oscillator {
     public func setFrequency(_ frequency: Float) {
         self.frequency = frequency
     }
+    
+    
     
     public func setWaveType(_ oscillatorWaveType: OscillatorWaveType) {
         self.oscillatorWaveType = oscillatorWaveType
@@ -69,9 +65,20 @@ class Oscillator {
     ///
     /// - Returns: the sample
     public func nextSample() -> Float {
-        let sample = getSampleBasedOnWaveType()
+        let sample = applyAmplitude( getSampleBasedOnWaveType() )
         updatePhaseForNextSample()
         return sample
+    }
+    
+    // MARK: - Amplitude
+    // Need to really apply this somewhere else like a mixer/orchestrator, wave shouldnt know its ampitude..
+    
+    public func setAmplitude(_ amplitude: Float) {
+        self.amplitude = amplitude
+    }
+    
+    private func applyAmplitude(_ sample: Float) -> Float {
+        return sample * amplitude
     }
     
     // TODO: generate a buffer of samples, maybe taking in a buffer pointer...
@@ -82,14 +89,14 @@ class Oscillator {
     
     /// Updates the phase increment (the rate at which the phase increases for each sample) based on the frequency
     private func updatePhaseIncrement(){
-        phaseIncrement = (frequency * twoPI) / sampleRate
+        phaseIncrement = (frequency * Sound.twoPI) / Sound.sampleRate
     }
     
     /// increment the phase to the next sample's value and wrap the unit circle back to 0 if over 2pi
     private func updatePhaseForNextSample() {
         phase += phaseIncrement
-        while (phase >= twoPI) {
-            phase -= twoPI
+        while (phase >= Sound.twoPI) {
+            phase -= Sound.twoPI
         }
     }
     
@@ -100,11 +107,11 @@ class Oscillator {
         case .sine:
             return sin(phase)
         case .saw:
-            return 1.0 - (2.0 * phase / twoPI);
+            return 1.0 - (2.0 * phase / Sound.twoPI);
         case .square:
-            return (phase <= PI) ? 1.0 : -1.0
+            return (phase <= Sound.PI) ? 1.0 : -1.0
         case .triangle:
-            var value = -1.0 + (2.0 * phase / twoPI);
+            var value = -1.0 + (2.0 * phase / Sound.twoPI);
             value = 2.0 * (abs(value) - 0.5)
             return value
         }
