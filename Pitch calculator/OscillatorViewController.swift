@@ -14,8 +14,13 @@ class OscillatorViewController: UIViewController {
     // MARK: - Properties
     private let oscillator = Oscillator(frequency: 880)
     private let functionalOscillator = FPOscillator(frequency: 880, oscillatorWaveType: .sine)
+    
     private let waveTypes: [OscillatorWaveType] = [.sine, .saw, .square, .triangle]
-    private var currentWaveTypeIndex = 0
+    private var oopWaveTypeIndex = 0
+    private var fpWaveTypeIndex = 0
+    
+    private var fpOscIsPlaying = false
+    private var oopOscIsPlaying = false
     
     // MARK: - View lifecycle
     
@@ -25,17 +30,45 @@ class OscillatorViewController: UIViewController {
         if index >= Int.max { index = 0 } // index loop of smaller numbers caused spectral leakage
         return index
     }
+    
+    // MARK: - View Lifecylce
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        SoundOutputManager.shared.getNextSample = {
-            // return self.oscillator.nextSample() ?? 0
-            return self.functionalOscillator.sample(self.getIndex()) + self.oscillator.nextSample()
-        }
     }
     
-    // MARK: - Actions
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        SoundOutputManager.shared.getNextSample = {
+            
+            return self.getFpOscSample() + self.getOopOscSample()
+        }
+        
+        SoundOutputManager.shared.togglePlaying()
+    }
+    
+    // MARK: - FP Oscillator Actions
+    
+    @IBAction func fpAmpSliderChanged(_ sender: UISlider) {
+        functionalOscillator.setAmplitude(sender.value)
+    }
+    
+    @IBAction func fpFreqSliderChanged(_ sender: UISlider) {
+        functionalOscillator.setFrequency(sender.value * 880.0)
+    }
+    
+    @IBAction func fpPlayTouched(_ sender: Any) {
+        fpOscIsPlaying = !fpOscIsPlaying
+    }
+    
+    @IBAction func fpWaveChangeTouched(_ sender: Any) {
+        fpWaveTypeIndex = (fpWaveTypeIndex + 1) % waveTypes.count
+        functionalOscillator.setWaveType(waveTypes[fpWaveTypeIndex])
+    }
+    
+    
+    // MARK: - OOP Oscillator Actions
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         oscillator.setFrequency(sender.value * 880.0)
@@ -45,16 +78,24 @@ class OscillatorViewController: UIViewController {
     }
     
     @IBAction func changeWaveTypePressed(_ sender: Any) {
-        currentWaveTypeIndex = (currentWaveTypeIndex + 1) % waveTypes.count
-        oscillator.setWaveType(waveTypes[currentWaveTypeIndex])
+        oopWaveTypeIndex = (oopWaveTypeIndex + 1) % waveTypes.count
+        oscillator.setWaveType(waveTypes[oopWaveTypeIndex])
     }
     
     
     @IBAction func playTouched(_ sender: Any) {
-        SoundOutputManager.shared.togglePlaying()
+        oopOscIsPlaying = !oopOscIsPlaying
     }
     
+    // MARK: - Terribly unintelligent oscillator toggling
     
+    private func getFpOscSample() -> Float {
+        return fpOscIsPlaying ? functionalOscillator.sample(getIndex()) : 0
+    }
+    
+    private func getOopOscSample() -> Float {
+        return oopOscIsPlaying ? oscillator.nextSample() : 0
+    }
     
     
     /*
