@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="53r-B7-G1i">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="53r-B7-G1i">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.13"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -116,37 +114,37 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FP Oscillator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2L-8t-se1">
-                                <rect key="frame" x="16" y="20" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="0.0" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amp:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ws3-FY-o55">
-                                <rect key="frame" x="16" y="61.5" width="40.5" height="20.5"/>
+                                <rect key="frame" x="16" y="41.5" width="40.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.01" maxValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-uF-zxU">
-                                <rect key="frame" x="62.5" y="56.5" width="298.5" height="31"/>
+                                <rect key="frame" x="62.5" y="36.5" width="298.5" height="31"/>
                                 <connections>
                                     <action selector="fpAmpSliderChanged:" destination="fci-iw-JwK" eventType="valueChanged" id="C7F-Tv-Bhd"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="3HJ-nk-uRD">
-                                <rect key="frame" x="61.5" y="110.5" width="299.5" height="31"/>
+                                <rect key="frame" x="61.5" y="90.5" width="299.5" height="31"/>
                                 <connections>
                                     <action selector="fpFreqSliderChanged:" destination="fci-iw-JwK" eventType="valueChanged" id="eT7-UN-OhV"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Freq:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQe-Uq-ib9">
-                                <rect key="frame" x="16" y="115.5" width="39.5" height="20.5"/>
+                                <rect key="frame" x="16" y="95.5" width="39.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="0JS-2n-Dkr">
-                                <rect key="frame" x="16" y="164.5" width="343" height="50"/>
+                                <rect key="frame" x="16" y="144.5" width="343" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dyg-w0-acZ">
                                         <rect key="frame" x="0.0" y="0.0" width="163.5" height="50"/>
@@ -178,6 +176,13 @@
                                     <action selector="amplitudeSliderChanged:" destination="fci-iw-JwK" eventType="valueChanged" id="2wF-mr-YsB"/>
                                 </connections>
                             </slider>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUq-Xx-1aZ">
+                                <rect key="frame" x="8" y="202.5" width="359" height="205"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <connections>
+                                    <segue destination="jW1-jh-DYB" kind="embed" id="SnW-8g-iEz"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -189,9 +194,11 @@
                             <constraint firstItem="yBn-Re-bDR" firstAttribute="top" secondItem="Ih6-Xj-Oc8" secondAttribute="bottom" constant="24" id="Gfi-y4-4Np"/>
                             <constraint firstItem="dJD-gs-akP" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="Lbw-rw-4bi"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="XwB-uF-zxU" secondAttribute="trailing" constant="16" id="M5p-mw-9t9"/>
+                            <constraint firstItem="dJD-gs-akP" firstAttribute="top" secondItem="aUq-Xx-1aZ" secondAttribute="bottom" constant="8" id="SWE-ma-g7M"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="H2L-8t-se1" secondAttribute="trailing" constant="16" id="TQx-k3-kNW"/>
                             <constraint firstItem="hQe-Uq-ib9" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="Xck-lg-Q5X"/>
                             <constraint firstItem="ws3-FY-o55" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="YnG-9L-AMG"/>
+                            <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="aUq-Xx-1aZ" secondAttribute="trailing" constant="8" id="baE-FS-cwY"/>
                             <constraint firstItem="yBn-Re-bDR" firstAttribute="bottom" secondItem="eop-h7-IA4" secondAttribute="bottom" id="cOb-b8-Ilu"/>
                             <constraint firstItem="yBn-Re-bDR" firstAttribute="top" secondItem="aV0-qO-ShK" secondAttribute="bottom" constant="24" id="d9k-hs-Svj"/>
                             <constraint firstItem="0JS-2n-Dkr" firstAttribute="top" secondItem="3HJ-nk-uRD" secondAttribute="bottom" constant="24" id="elu-Kj-JgH"/>
@@ -208,15 +215,20 @@
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="3HJ-nk-uRD" secondAttribute="trailing" constant="16" id="p9e-Ah-L1g"/>
                             <constraint firstItem="nsL-Hp-w5e" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="qIk-Cf-bJR"/>
                             <constraint firstItem="yBn-Re-bDR" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="16" id="qtG-Xt-WWO"/>
+                            <constraint firstItem="aUq-Xx-1aZ" firstAttribute="leading" secondItem="eop-h7-IA4" secondAttribute="leading" constant="8" id="r49-dg-D9m"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="0JS-2n-Dkr" secondAttribute="trailing" constant="16" id="r8s-Iy-HGQ"/>
                             <constraint firstItem="eop-h7-IA4" firstAttribute="trailing" secondItem="dJD-gs-akP" secondAttribute="trailing" constant="16" id="te5-at-PtS"/>
                             <constraint firstItem="XwB-uF-zxU" firstAttribute="leading" secondItem="ws3-FY-o55" secondAttribute="trailing" constant="8" id="uH7-yS-hbq"/>
                             <constraint firstItem="aV0-qO-ShK" firstAttribute="top" secondItem="tvM-JA-Yle" secondAttribute="bottom" constant="24" id="wrp-ht-FCF"/>
                             <constraint firstItem="3HJ-nk-uRD" firstAttribute="top" secondItem="XwB-uF-zxU" secondAttribute="bottom" constant="24" id="wx5-p5-bgH"/>
+                            <constraint firstItem="aUq-Xx-1aZ" firstAttribute="top" secondItem="0JS-2n-Dkr" secondAttribute="bottom" constant="8" id="yJQ-YV-7fW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eop-h7-IA4"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Oscillator" id="bkc-KD-QR5"/>
+                    <connections>
+                        <outlet property="childContentView" destination="aUq-Xx-1aZ" id="yAd-Tr-TII"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLY-7h-m6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -240,6 +252,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jxI-xI-6Zz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="53.600000000000001" y="27.436281859070466"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="MI9-vv-HSJ">
+            <objects>
+                <viewController id="jW1-jh-DYB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dat-O4-dqo">
+                        <rect key="frame" x="0.0" y="0.0" width="359" height="205"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9HQ-pb-iLn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1642" y="751"/>
         </scene>
     </scenes>
 </document>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F318AE122AC2A51001AE440 /* WaveVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F318AE022AC2A51001AE440 /* WaveVisualization.swift */; };
 		4F46E4C3223EF41F00DAB719 /* SoundOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F46E4C2223EF41F00DAB719 /* SoundOutputManager.swift */; };
 		4F48ED8722359F8800741C6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ED8622359F8800741C6B /* AppDelegate.swift */; };
 		4F48ED8922359F8800741C6B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F48ED8822359F8800741C6B /* ViewController.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F318AE022AC2A51001AE440 /* WaveVisualization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveVisualization.swift; sourceTree = "<group>"; };
 		4F46E4C2223EF41F00DAB719 /* SoundOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOutputManager.swift; sourceTree = "<group>"; };
 		4F48ED8322359F8800741C6B /* Pitch calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pitch calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F48ED8622359F8800741C6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			children = (
 				4F48ED8622359F8800741C6B /* AppDelegate.swift */,
 				4F67B7E9223ECB3C00508BC1 /* OscillatorViewController.swift */,
+				4F318AE022AC2A51001AE440 /* WaveVisualization.swift */,
 				4F48ED8822359F8800741C6B /* ViewController.swift */,
 				4F48ED8A22359F8800741C6B /* Main.storyboard */,
 				4F48ED8D22359F8900741C6B /* Assets.xcassets */,
@@ -230,6 +233,7 @@
 				4F48EDA82235A04300741C6B /* SoundEngine.swift in Sources */,
 				4F87B4C62247F54E000D266D /* SoundConstants.swift in Sources */,
 				4F46E4C3223EF41F00DAB719 /* SoundOutputManager.swift in Sources */,
+				4F318AE122AC2A51001AE440 /* WaveVisualization.swift in Sources */,
 				4F67B7EC223ECBC900508BC1 /* Oscillator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +399,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9K26M7235C;
 				INFOPLIST_FILE = "Pitch calculator/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -413,6 +418,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9K26M7235C;
 				INFOPLIST_FILE = "Pitch calculator/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

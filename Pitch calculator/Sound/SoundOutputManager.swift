@@ -31,7 +31,7 @@ class SoundOutputManager {
     private let playerNode: AVAudioPlayerNode = AVAudioPlayerNode()
     
     // Use standard non-interleaved PCM audio.
-    private let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000.0, channels: 1)
+    private let audioFormat = AVAudioFormat(standardFormatWithSampleRate: Double(Sound.sampleRate), channels: 1)
     
     // A circular queue of audio buffers.
     private var audioBuffers: [AVAudioPCMBuffer] = [AVAudioPCMBuffer]()

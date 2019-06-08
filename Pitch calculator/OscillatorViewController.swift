@@ -8,8 +8,11 @@
 
 import UIKit
 import AVFoundation
+import SwiftUI
 
 class OscillatorViewController: UIViewController {
+    
+    @IBOutlet weak var childContentView: UIView!
     
     // MARK: - Properties
     private let oscillator = Oscillator(frequency: 880)
@@ -35,6 +38,21 @@ class OscillatorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TODO: Clean up the creation of this child VC, just POC'ing at the moment
+            let vc = UIHostingController(rootView: WaveVisualization())
+        
+            // addChildViewController(childVC)
+            //Or, you could add auto layout constraint instead of relying on AutoResizing contraints
+            vc.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            vc.view.frame = childContentView.bounds
+            
+            childContentView.addSubview(vc.view)
+            vc.didMove(toParent: self)
+            
+            //Some property on ChildVC that needs to be set
+            // childVC.dataSource = self
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +108,7 @@ class OscillatorViewController: UIViewController {
     // MARK: - Terribly unintelligent oscillator toggling
     
     private func getFpOscSample() -> Float {
+        // getIndex() func into pur fucntion call is a little weird here..
         return fpOscIsPlaying ? functionalOscillator.sample(getIndex()) : 0
     }
     
