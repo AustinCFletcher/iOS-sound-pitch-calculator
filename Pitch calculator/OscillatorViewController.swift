@@ -9,6 +9,16 @@
 import UIKit
 import AVFoundation
 import SwiftUI
+import Combine
+
+class IdentifiableSamples {
+    var samples: [Float] = [Float]() {
+        didSet {
+            sampleIDs = Array(0..<samples.count)
+        }
+    }
+    var sampleIDs: [Int] = [Int]()
+}
 
 class OscillatorViewController: UIViewController {
     
@@ -25,6 +35,13 @@ class OscillatorViewController: UIViewController {
     private var fpOscIsPlaying = false
     private var oopOscIsPlaying = false
     
+    public func samplesCallback(samples: [Float]) {
+        print("\n \(samples[0]) \n")
+        self.samples = samples
+    }
+    
+    var samples = [Float]()
+    
     // MARK: - View lifecycle
     
     private var index: Int = 0
@@ -40,7 +57,7 @@ class OscillatorViewController: UIViewController {
         super.viewDidLoad()
         
         // TODO: Clean up the creation of this child VC, just POC'ing at the moment
-            let vc = UIHostingController(rootView: WaveVisualization())
+            let vc = UIHostingController(rootView: WaveVisualization(samples: IdentifiableSamples()))
         
             // addChildViewController(childVC)
             //Or, you could add auto layout constraint instead of relying on AutoResizing contraints
@@ -52,6 +69,8 @@ class OscillatorViewController: UIViewController {
             
             //Some property on ChildVC that needs to be set
             // childVC.dataSource = self
+        
+        SoundOutputManager.shared.samplesHook = self.samplesCallback
     
     }
     

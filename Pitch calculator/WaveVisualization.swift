@@ -9,15 +9,24 @@
 import SwiftUI
 
 struct WaveVisualization : View {
+    let samples: IdentifiableSamples
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ForEach(samples.sampleIDs) { id in
+                Text("\(self.samples.samples[id])")
+                Spacer()
+            }
+        }
+        
+        
     }
 }
 
 #if DEBUG
 struct WaveVisualization_Previews : PreviewProvider {
     static var previews: some View {
-        WaveVisualization()
+        WaveVisualization(samples: IdentifiableSamples())
     }
 }
 #endif
