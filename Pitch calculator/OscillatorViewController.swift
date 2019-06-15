@@ -8,8 +8,34 @@
 
 import UIKit
 import AVFoundation
+import SwiftUI
+import Combine
+
+class IdentifiableSamples: BindableObject {
+    var moduloCounterHack = 0
+    var didChange = PassthroughSubject<IdentifiableSamples, Never>()
+    
+    var samples: [Float] = [Float]() {
+        didSet {
+            if self.moduloCounterHack % 2 == 0 {
+                 DispatchQueue.main.async { self.didChange.send(self) }
+            }
+            moduloCounterHack += 1
+        }
+    }
+
+    var sampleIDs: [Int] = {
+        var thing = [Int]()
+        for id in 0..<1024 {
+            thing.append(id)
+        }
+        return thing
+    }()
+}
 
 class OscillatorViewController: UIViewController {
+    
+    @IBOutlet weak var childContentView: UIView!
     
     // MARK: - Properties
     private let oscillator = Oscillator(frequency: 880)
@@ -21,6 +47,28 @@ class OscillatorViewController: UIViewController {
     
     private var fpOscIsPlaying = false
     private var oopOscIsPlaying = false
+    
+    private var test = IdentifiableSamples()
+    
+    var moduloCounterHack = 0
+    
+    public func samplesCallback(samples: [Float]) {
+        // print("\n \(samples[0]) \n")
+
+        
+        DispatchQueue.main.async {
+////            self.test.didChange.debounce(for: .milliseconds(500), scheduler: Scheduler())
+//            print("\n \(self.test.samples.count) \n")
+
+            self.test.samples = samples
+//            if self.moduloCounterHack % 2 == 0 {
+//                self.test.didChange.send(Void())
+//            }
+//            self.moduloCounterHack += 1
+        }
+    }
+    
+    var samples2 = [Float]()
     
     // MARK: - View lifecycle
     
@@ -35,6 +83,32 @@ class OscillatorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var thing = [Float]()
+        for _ in 0..<1024 {
+            thing.append(0)
+        }
+        test.samples = thing
+        
+        //test.didChange.receive(on: RunLoop.main)
+        
+        // TODO: Clean up the creation of this child VC, just POC'ing at the moment
+        
+            let vc = UIHostingController(rootView: WaveVisualization(samples: test, frame1: childContentView.bounds))
+        
+            // addChildViewController(childVC)
+            //Or, you could add auto layout constraint instead of relying on AutoResizing contraints
+            vc.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            vc.view.frame = childContentView.bounds
+            
+            childContentView.addSubview(vc.view)
+            vc.didMove(toParent: self)
+            
+            //Some property on ChildVC that needs to be set
+            // childVC.dataSource = self
+        
+        SoundOutputManager.shared.samplesHook = self.samplesCallback
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +164,7 @@ class OscillatorViewController: UIViewController {
     // MARK: - Terribly unintelligent oscillator toggling
     
     private func getFpOscSample() -> Float {
+        // getIndex() func into pur fucntion call is a little weird here..
         return fpOscIsPlaying ? functionalOscillator.sample(getIndex()) : 0
     }
     

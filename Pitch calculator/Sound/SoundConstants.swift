@@ -12,4 +12,5 @@ class Sound {
     static let PI: Float = Float.pi
     static let twoPI: Float = Float.pi * 2
     static let sampleRate: Float = 48000.0
+    // static let sampleRate: Float = 44100.0
 }

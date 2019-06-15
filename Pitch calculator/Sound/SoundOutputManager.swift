@@ -14,6 +14,8 @@ class SoundOutputManager {
     
     public static let shared: SoundOutputManager = SoundOutputManager()
     
+    public var samplesHook: ( ([Float]) -> Void )?
+    
     // The maximum number of audio buffers in flight. Setting to two allows one
     // buffer to be played while the next is being written.
     private var inFlightAudioBuffers: Int = 2
@@ -23,6 +25,7 @@ class SoundOutputManager {
     // to fill the buffers in time. A setting of 1024 represents about 23ms of
     // samples.
     private let samplesPerBuffer: AVAudioFrameCount = 1024
+//    private let samplesPerBuffer: AVAudioFrameCount = 2048
     
     // The audio engine manages the sound system.
     private let audioEngine: AVAudioEngine = AVAudioEngine()
@@ -31,7 +34,7 @@ class SoundOutputManager {
     private let playerNode: AVAudioPlayerNode = AVAudioPlayerNode()
     
     // Use standard non-interleaved PCM audio.
-    private let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000.0, channels: 1)
+    private let audioFormat = AVAudioFormat(standardFormatWithSampleRate: Double(Sound.sampleRate), channels: 1)
     
     // A circular queue of audio buffers.
     private var audioBuffers: [AVAudioPCMBuffer] = [AVAudioPCMBuffer]()
@@ -98,6 +101,7 @@ class SoundOutputManager {
                 
                 // get the correct buffer from the pool of ones not being played
                 let audioBuffer = self.audioBuffers[self.bufferIndex]
+                var capturedFloats = [Float]()
                 // Fill the buffer with new samples.
                 let leftChannel = audioBuffer.floatChannelData?[0]
                 let rightChannel = audioBuffer.floatChannelData?[1]
@@ -105,12 +109,20 @@ class SoundOutputManager {
                     let sample = self.getNextSample()
                     leftChannel?[sampleIndex] = sample
                     rightChannel?[sampleIndex] = sample
+                    capturedFloats.append(sample)
                     sampleTime = sampleTime + 1.0
                 }
                 audioBuffer.frameLength = self.samplesPerBuffer
                 
                 // Schedule the buffer for playback and release it for reuse after
                 // playback has finished.
+                
+                // TODO: call hook here
+                DispatchQueue.main.async {
+                    self.samplesHook?(capturedFloats)
+                }
+                
+                
                 self.playerNode.scheduleBuffer(audioBuffer) {
                     self.audioSemaphore.signal()
                     return

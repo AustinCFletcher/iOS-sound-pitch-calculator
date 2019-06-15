@@ -83,7 +83,7 @@ class SoundEngine {
         // find the peaks in the autocorrelation
         let peaks = findPeaksOfAutocorrelation(dotProducts: dotProducts)
         // use the peaks to caclulate the frequency of the original buffer :)
-        return calculateFrequencyFrom(peaks: peaks, sampleRate: 48000.0)
+        return calculateFrequencyFrom(peaks: peaks, sampleRate: Sound.sampleRate)
     }
     
     private func dotProduct(signalA: [Float], signalB: [Float]) -> Float {
