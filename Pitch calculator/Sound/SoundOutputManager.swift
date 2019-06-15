@@ -25,6 +25,7 @@ class SoundOutputManager {
     // to fill the buffers in time. A setting of 1024 represents about 23ms of
     // samples.
     private let samplesPerBuffer: AVAudioFrameCount = 1024
+//    private let samplesPerBuffer: AVAudioFrameCount = 2048
     
     // The audio engine manages the sound system.
     private let audioEngine: AVAudioEngine = AVAudioEngine()
@@ -117,7 +118,10 @@ class SoundOutputManager {
                 // playback has finished.
                 
                 // TODO: call hook here
-                self.samplesHook?(capturedFloats)
+                DispatchQueue.main.async {
+                    self.samplesHook?(capturedFloats)
+                }
+                
                 
                 self.playerNode.scheduleBuffer(audioBuffer) {
                     self.audioSemaphore.signal()

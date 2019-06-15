@@ -11,13 +11,26 @@ import AVFoundation
 import SwiftUI
 import Combine
 
-class IdentifiableSamples {
+class IdentifiableSamples: BindableObject {
+    var moduloCounterHack = 0
+    var didChange = PassthroughSubject<IdentifiableSamples, Never>()
+    
     var samples: [Float] = [Float]() {
         didSet {
-            sampleIDs = Array(0..<samples.count)
+            if self.moduloCounterHack % 2 == 0 {
+                 DispatchQueue.main.async { self.didChange.send(self) }
+            }
+            moduloCounterHack += 1
         }
     }
-    var sampleIDs: [Int] = [Int]()
+
+    var sampleIDs: [Int] = {
+        var thing = [Int]()
+        for id in 0..<1024 {
+            thing.append(id)
+        }
+        return thing
+    }()
 }
 
 class OscillatorViewController: UIViewController {
@@ -35,12 +48,27 @@ class OscillatorViewController: UIViewController {
     private var fpOscIsPlaying = false
     private var oopOscIsPlaying = false
     
+    private var test = IdentifiableSamples()
+    
+    var moduloCounterHack = 0
+    
     public func samplesCallback(samples: [Float]) {
-        print("\n \(samples[0]) \n")
-        self.samples = samples
+        // print("\n \(samples[0]) \n")
+
+        
+        DispatchQueue.main.async {
+////            self.test.didChange.debounce(for: .milliseconds(500), scheduler: Scheduler())
+//            print("\n \(self.test.samples.count) \n")
+
+            self.test.samples = samples
+//            if self.moduloCounterHack % 2 == 0 {
+//                self.test.didChange.send(Void())
+//            }
+//            self.moduloCounterHack += 1
+        }
     }
     
-    var samples = [Float]()
+    var samples2 = [Float]()
     
     // MARK: - View lifecycle
     
@@ -56,8 +84,17 @@ class OscillatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var thing = [Float]()
+        for _ in 0..<1024 {
+            thing.append(0)
+        }
+        test.samples = thing
+        
+        //test.didChange.receive(on: RunLoop.main)
+        
         // TODO: Clean up the creation of this child VC, just POC'ing at the moment
-            let vc = UIHostingController(rootView: WaveVisualization(samples: IdentifiableSamples()))
+        
+            let vc = UIHostingController(rootView: WaveVisualization(samples: test, frame1: childContentView.bounds))
         
             // addChildViewController(childVC)
             //Or, you could add auto layout constraint instead of relying on AutoResizing contraints
